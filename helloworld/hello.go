@@ -4,7 +4,7 @@ package main
 const (
 	englishHelloPrefix = "Hello, "
 	spanishHelloPrefix = "Hola, "
-	frenchHelloPrefix  = "Bonjour, "
+	frenchHelloPrefix  = "Fake Bonjour, "
 )
 
 func Hello(name string, language string) string {
@@ -29,7 +29,16 @@ func greetingPrefix(language string) string {
 	return prefix
 }
 
-func Bye() string {
-	return "Bye, world"
+func new_greetingPrefix(language string) (prefix string){
+	switch language{
+	case "French":
+		prefix = frenchHelloPrefix
+	
+	case "Spanish":
+		prefix = spanishHelloPrefix
+	
+	default:
+		prefix = englishHelloPrefix
+	}
+	return
 }
-
