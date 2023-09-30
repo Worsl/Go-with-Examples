@@ -9,3 +9,6 @@ func main(){
 		fmt.Println(i,number)
 	}
 }
+
+
+// this is from 1998
