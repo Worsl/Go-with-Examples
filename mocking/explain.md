@@ -11,3 +11,10 @@ the actual database breaks.
 
 
 the con is the confidence level. Sometimes the fake environment is definitely not a perfect indicator of real environment
+
+
+so is fast mocked test better? or slow,rest end-to-end test?
+We should use both depending on the situation.
+
+if the situation requires immediate feedback, we use mock data and mock interactions
+maybe into the actualy pipeline deployment, we use real data and mock interactions
