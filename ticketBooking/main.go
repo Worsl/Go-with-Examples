@@ -1,5 +1,7 @@
 package main
 
+// written as part of tutorial
+
 import (
 	"fmt"
 	"strings"
@@ -108,7 +110,6 @@ func getUserInput() (string, string, string, uint) {
 
 	fmt.Print("email: ")
 	fmt.Scanln(&email)
-
 
 	return firstName,lastName,email,userTickets
 
