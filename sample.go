@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"sync"
+	"time"
 )
 
 var wg = sync.WaitGroup{}
@@ -20,10 +20,10 @@ func worker(id int) {
 func main() {
 	numOfWorkers := 5
 
-	for i:=0; i < numOfWorkers; i++{
+	for i := 0; i < numOfWorkers; i++ {
 		wg.Add(1)
 		go worker(i)
-	
+
 	}
 
 	wg.Wait()

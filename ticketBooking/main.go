@@ -13,56 +13,54 @@ var conferenceName = "Go Conference"
 var remainingTickets uint = 50
 var bookings = make([]UserData, 0)
 
-
 type UserData struct {
-    firstName string
-	lastName string
-	email string
+	firstName       string
+	lastName        string
+	email           string
 	numberOfTickets int
 }
 
 var wg = sync.WaitGroup{}
 
 func main() {
+
 	greetUsers()
 
-	for{
+	for {
 
-		if remainingTickets <= 0{
+		if remainingTickets <= 0 {
 			fmt.Println("out of tickets")
 			break
-		}else{
+		} else {
 			fmt.Println("Number of tickets remaining: ", remainingTickets)
 		}
-		
-		firstName, lastName , email, userTickets := getUserInput()
-		ValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName,lastName,email,userTickets)
-	
 
+		firstName, lastName, email, userTickets := getUserInput()
+		ValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
 
 		if ValidName && isValidEmail && isValidTicketNumber {
-			bookTicket(userTickets,firstName,lastName,email)
 
-			wg.Add(1)
-			go sendTicket(userTickets,firstName,lastName,email)
+			bookTicket(userTickets, firstName, lastName, email)
+			wg.Add(1) // increment wait group counter
+			go sendTicket(userTickets, firstName, lastName, email)
+
 		} else {
-			if !isValidEmail{
+			if !isValidEmail {
 				fmt.Println("invalid email")
 			}
-		
-			if !ValidName{
+
+			if !ValidName {
 				fmt.Println("invalid name")
 			}
-		
-			if !isValidTicketNumber{
+
+			if !isValidTicketNumber {
 				fmt.Println("invalid ticket number")
 			}
 		}
 
-		
 	}
-	
-	
+
+	wg.Wait() // Wait for all tickets to be sent successfully before closing the program
 	fmt.Println("current list of users registered in the system")
 	fmt.Println(getFirstNames())
 
@@ -75,17 +73,16 @@ func validateUserInput(firstName string, lastName string, email string, userTick
 	return isValidName, isValidEmail, isValidTicketNumber
 }
 
-
 func greetUsers() {
-    fmt.Println("Welcome to the ticket booking conference session ")
+	fmt.Println("Welcome to the ticket booking conference session ")
 	fmt.Printf("\n\n")
 }
 
 func getFirstNames() []string {
-	s := make([]string,0)
+	s := make([]string, 0)
 
-    for _,b := range bookings{
-		s = append(s, b.firstName + b.lastName )
+	for _, b := range bookings {
+		s = append(s, b.firstName+b.lastName)
 	}
 
 	return s
@@ -97,9 +94,7 @@ func getUserInput() (string, string, string, uint) {
 	var firstName string
 	var email string
 
-
-
-    fmt.Print("Number of tickets to purchase: ")
+	fmt.Print("Number of tickets to purchase: ")
 	fmt.Scanln(&userTickets)
 
 	fmt.Print("First name: ")
@@ -111,8 +106,7 @@ func getUserInput() (string, string, string, uint) {
 	fmt.Print("email: ")
 	fmt.Scanln(&email)
 
-	return firstName,lastName,email,userTickets
-
+	return firstName, lastName, email, userTickets
 
 }
 
@@ -123,8 +117,7 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 }
 
 func sendTicket(userTickets uint, firstName string, lastName string, email string) {
-
-	time.Sleep(10 * time.Second)
+	time.Sleep(10 * time.Second) // this 10 second sleep is to simulate the real world delay in processing and sending the ticket
 	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
 	fmt.Println("#################")
 	fmt.Printf("Sending ticket:\n%v \nto email address %v\n", ticket, email)
