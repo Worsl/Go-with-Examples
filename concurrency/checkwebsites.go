@@ -1,4 +1,4 @@
-package concurrency
+package main
 
 // WebsiteChecker checks a url, returning a bool.
 type WebsiteChecker func(string) bool
