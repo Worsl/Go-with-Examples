@@ -1,1 +1,1 @@
-connected to linux machine
+A repository dedicated to my go-learning journey
