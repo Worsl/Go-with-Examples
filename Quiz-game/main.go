@@ -25,8 +25,6 @@ func runGame( records [][]string) ( int) {
 
 } 
 
-
-
 func main(){
 	var duration int
 	fmt.Print("Timer duration: ")
@@ -46,9 +44,6 @@ func main(){
     }
 
 	score := runGame(records)
-
-
-
 	fmt.Printf("Your score is %d \n", score)
 
 }
