@@ -2,26 +2,15 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
-// the goal is to see if channel go routines are truly random
-func main(){
+func main() {
+    timer := time.NewTimer(2 * time.Second)
 
-	dogChannel := make(chan string)
-	go func (){dogChannel <- "woof!"}()
+    // Wait for the timer to expire and receive the time when it does.
+    time_ := <-timer.C
 
-	catChannel := make(chan string)
-	go func(){catChannel <- "Meow!"}()
-
-	select{
-
-	case msgFromDog := <-dogChannel:
-		fmt.Println(msgFromDog)
-
-	case msgFromCat := <- catChannel:
-		fmt.Println(msgFromCat)
-
-	}
-
-
+	fmt.Println(time_)
+    fmt.Println("Timer expired.")
 }
