@@ -16,6 +16,7 @@ func runGame( records [][]string, duration int) ( int) {
 
 	timer1 := time.NewTimer(time.Duration(duration) * time.Second)
 	answer_channel := make(chan string)
+	defer close(answer_channel)
 
 
 	for _, record := range records {
@@ -57,6 +58,7 @@ func main(){
 	if err != nil{
 		fmt.Printf("error, %s is not found in directory \n",*csv_file)
 	}
+	defer file.Close()
 
 	fileReader := csv.NewReader(file)
 	records,err:= fileReader.ReadAll()
