@@ -8,12 +8,10 @@ import (
 )
 
 func main() {
-
 	// 1. set up a mux
 	// 2. builds a map handler
 	// 3. builds yaml handler
 	// 4. runs on localhost 8080
-
 	// 5. yaml -> map -> mux
 
 	mux := defaultMux()
@@ -38,6 +36,9 @@ url: https://github.com/gophercises/urlshort/tree/solution
 	if err != nil {
 		panic(err)
 	}
+
+
+
 	fmt.Println("Starting the server on :8080")
 	http.ListenAndServe(":8080", yamlHandler)
 }

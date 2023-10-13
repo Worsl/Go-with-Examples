@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// runGame starts the game
 func runGame( records [][]string, duration int) ( int) {
 	var userGuess string
 	var answer string
@@ -69,6 +70,7 @@ func main(){
 }
 
 
+// exit closes the program and gives an error message
 func exit(message string) {
 	fmt.Println(message)
 	os.Exit(1)
