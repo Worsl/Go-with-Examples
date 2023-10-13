@@ -8,11 +8,11 @@ import (
 )
 
 func Hello(w http.ResponseWriter, req *http.Request) {
-	render.RenderTemplates(w, "home.page.html")
+	render.RenderTemplate(w, "home.page.html")
 }
 
 func About(w http.ResponseWriter, req *http.Request) {
-	render.RenderTemplates(w, "about.page.html")
+	render.RenderTemplate(w, "about.page.html")
 }
 
 func Headers(w http.ResponseWriter, req *http.Request) {
