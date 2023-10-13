@@ -3,14 +3,16 @@ package handlers
 import (
 	"fmt"
 	"net/http"
+
 	"github.com/worsl/Go-Workspace/webapp/pkg/render"
 )
 
-
-
 func Hello(w http.ResponseWriter, req *http.Request) {
+	render.RenderTemplates(w, "home.page.html")
+}
 
-	render.RenderTemplates(w,"home")
+func About(w http.ResponseWriter, req *http.Request) {
+	render.RenderTemplates(w, "about.page.html")
 }
 
 func Headers(w http.ResponseWriter, req *http.Request) {
@@ -21,5 +23,3 @@ func Headers(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 }
-
-
