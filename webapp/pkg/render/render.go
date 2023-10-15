@@ -13,16 +13,24 @@ import (
 var pagemap = make(map[string]*template.Template)
 var app *config.AppConfig
 
+// NewTemplates sets the config for the configApplication
 func NewTemplates(appFromMain *config.AppConfig) {
 	app = appFromMain // successfully linked both of them together
 }
 
 // RenderTemplatesNew have an advantage in that we can have multiple base layouts and it will be handled accordingly, with ParseGlob later
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	// get the template cache from app config, instead of creating it everytime
-	pageCache := app.TemplateCache
 
-	// create a template cache (only if it first request?)
+	var pageCache map[string]*template.Template
+	// if the system configuration allows us to use the existing cache, 
+	if app.UseCache{
+		// get the template cache from app config, instead of creating it everytime
+		pageCache = app.TemplateCache
+	}else{
+		pageCache,_ = CreateTemplateCache()
+	}
+
+
 
 	// get request template from cache
 	t, exists := pageCache[tmpl]
