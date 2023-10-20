@@ -5,8 +5,10 @@ import (
 	"net/http"
 
 	"github.com/worsl/Go-Workspace/webapp/pkg/config"
+	"github.com/worsl/Go-Workspace/webapp/pkg/models"
 	"github.com/worsl/Go-Workspace/webapp/pkg/render"
 )
+
 
 var Repo *Repository
 
@@ -28,11 +30,18 @@ func NewHandlers(repoFromMain *Repository){
 
 // a function reciever associates itself with the Repository struct, allowing it to have access to its fields.
 func (m *Repository) Hello(w http.ResponseWriter, req *http.Request) {
-	render.RenderTemplate(w, "home.page.html")
+	render.RenderTemplate(w, "home.page.html",&models.TemplateData{})
 }
 
 func (m *Repository) About(w http.ResponseWriter, req *http.Request) {
-	render.RenderTemplate(w, "about.page.html")
+
+	// perform some logic
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello again."
+
+	render.RenderTemplate(w, "about.page.html", &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
 
 func (m *Repository) Headers(w http.ResponseWriter, req *http.Request) {

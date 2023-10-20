@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/worsl/Go-Workspace/webapp/pkg/config"
+	"github.com/worsl/Go-Workspace/webapp/pkg/models"
 )
 
 var pagemap = make(map[string]*template.Template)
@@ -18,8 +19,14 @@ func NewTemplates(appFromMain *config.AppConfig) {
 	app = appFromMain // successfully linked both of them together
 }
 
+
+func AddDefaultData(td *models.TemplateData) *models.TemplateData{
+	td.StringMap["bye"] = "bye"
+	return td
+}
+
 // RenderTemplatesNew have an advantage in that we can have multiple base layouts and it will be handled accordingly, with ParseGlob later
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string , td *models.TemplateData) {
 
 	var pageCache map[string]*template.Template
 	// if the system configuration allows us to use the existing cache, 
@@ -38,8 +45,10 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		log.Fatal("page not found in cache")
 	}
 
+	td = AddDefaultData(td)
+
 	// render the template
-	err := t.Execute(w, nil)
+	err := t.Execute(w, td)
 
 	if err != nil {
 		fmt.Println("error parsing template:", err)
