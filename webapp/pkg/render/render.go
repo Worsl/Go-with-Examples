@@ -25,7 +25,7 @@ func AddDefaultData(td *models.TemplateData) *models.TemplateData{
 	return td
 }
 
-// RenderTemplatesNew have an advantage in that we can have multiple base layouts and it will be handled accordingly, with ParseGlob later
+// RenderTemplates have an advantage in that we can have multiple base layouts and it will be handled accordingly, with ParseGlob later
 func RenderTemplate(w http.ResponseWriter, tmpl string , td *models.TemplateData) {
 
 	var pageCache map[string]*template.Template
@@ -93,6 +93,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	return myCache, nil
 
 }
+
 
 func RenderTemplateOld(w http.ResponseWriter, tmpl string) {
 	parsedTemplate, exists := pagemap[tmpl]

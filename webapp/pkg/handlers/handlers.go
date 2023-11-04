@@ -30,6 +30,7 @@ func NewHandlers(repoFromMain *Repository){
 
 // a function reciever associates itself with the Repository struct, allowing it to have access to its fields.
 func (m *Repository) Hello(w http.ResponseWriter, req *http.Request) {
+	
 	render.RenderTemplate(w, "home.page.html",&models.TemplateData{})
 }
 
