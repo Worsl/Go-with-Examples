@@ -19,6 +19,7 @@ func main() {
 	fmt.Printf("server will run on port %d, for timezone %s \n",*port, *TZ)
 
 	address := fmt.Sprintf("localhost:%d", *port)
+	
 	listener, err := net.Listen("tcp", address)
 	if err != nil {
 		log.Fatal(err)
@@ -34,9 +35,11 @@ func main() {
 		locationString := *TZ
 
 		region,err := time.LoadLocation(locationString)
+		
 		if err != nil{
 			log.Print(err)
 		}
+
 		go handleConn(conn,region)
 	}
 
